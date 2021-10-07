@@ -84,7 +84,7 @@ EnterpriseDatasource.prototype.getRows = function (params) {
   console.log(jsonRequest);
 
   let httpRequest = new XMLHttpRequest();
-  httpRequest.open('POST', 'http://home.faber.pro:8081/getRows');
+  httpRequest.open('POST', 'http://' + window.location.hostname + ':8081/getRows');
   httpRequest.setRequestHeader("Content-type", "application/json");
   httpRequest.send(jsonRequest);
   httpRequest.onreadystatechange = () => {
