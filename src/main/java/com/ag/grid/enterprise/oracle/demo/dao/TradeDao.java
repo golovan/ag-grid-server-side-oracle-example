@@ -52,7 +52,9 @@ public class TradeDao {
         queryBuilder = new OracleSqlQueryBuilder();
 
         for (String product : PRODUCTS) {
-            insertBatch(createTradeData(product, nextBatchId++));
+            for (String portfolio : PORTFOLIOS) {
+                insertBatch(createTradeData(product, portfolio, nextBatchId++));
+            }
         }
     }
 
@@ -91,15 +93,13 @@ public class TradeDao {
         });
     }
 
-    private List<Trade> createTradeData(String product, long thisBatch) {
+    private List<Trade> createTradeData(String product, String portfolio, long thisBatch) {
         List<Trade> trades = new ArrayList<>();
 
-        for (String portfolio : PORTFOLIOS) {
-            for (int k = 0; k < numberBetween(10, 2000); k++) {
-                String book = createBookName();
-                for (int l = 0; l < numberBetween(10, 10000); l++) {
-                    trades.add(createTradeRecord(product, portfolio, book, thisBatch));
-                }
+        for (int k = 0; k < numberBetween(10, 2000); k++) {
+            String book = createBookName();
+            for (int l = 0; l < numberBetween(10, 10000); l++) {
+                trades.add(createTradeRecord(product, portfolio, book, thisBatch));
             }
         }
 
