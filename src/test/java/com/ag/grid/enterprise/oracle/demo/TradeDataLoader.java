@@ -42,11 +42,7 @@ public class TradeDataLoader {
 
     @Test
     public void loadTradeData() {
-        for (String product : PRODUCTS) {
-            for (String portfolio : PORTFOLIOS) {
-                insertBatch(createTradeData(product, portfolio, nextBatchId++));
-            }
-        }
+        insertBatch(createTradeData());
     }
 
     private void insertBatch(final List<Trade> trades) {
@@ -84,18 +80,22 @@ public class TradeDataLoader {
         });
     }
 
-    private List<Trade> createTradeData(String product, String portfolio, long thisBatch) {
+    private List<Trade> createTradeData() {
         List<Trade> trades = new ArrayList<>();
-
-        for (int k = 0; k < numberBetween(10, 2000); k++) {
-            String book = createBookName();
-            for (int l = 0; l < numberBetween(10, 10000); l++) {
-                trades.add(createTradeRecord(product, portfolio, book, thisBatch));
+        long thisBatch = nextBatchId++;
+        for (String product : PRODUCTS) {
+            for (String portfolio : PORTFOLIOS) {
+                for (int k = 0; k < numberBetween(10, 2000); k++) {
+                    String book = createBookName();
+                    for (int l = 0; l < numberBetween(10, 10000); l++) {
+                        trades.add(createTradeRecord(product, portfolio, book, thisBatch));
+                    }
+                }
             }
         }
-
         return trades;
     }
+
     private Trade createTradeRecord(String product, String portfolio, String book, Long batch) {
 
         double current = (floor(random() * 100000) + 1000);
