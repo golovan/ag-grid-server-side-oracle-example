@@ -5,13 +5,11 @@ import com.ag.grid.enterprise.oracle.demo.response.EnterpriseGetRowsResponse;
 import com.ag.grid.enterprise.oracle.demo.dao.TradeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class TradeController {
 
